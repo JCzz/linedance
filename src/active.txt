@@ -1,0 +1,35 @@
+	const activeEditor = vscode.window.activeTextEditor;
+		if (activeEditor) {
+			let lineNumber = activeEditor.selection.active.line;
+			const lineText = activeEditor.document.lineAt(lineNumber).text;
+			vscode.commands.executeCommand(lineText);
+			vscode.commands.executeCommand("ls");
+		}
+	
+
+	  let ignoreSelectionText = false;
+  vscode.window.onDidChangeTextEditorSelection((event) => {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+      if (editor!.selection.isEmpty) {
+		ignoreSelectionText = true;
+        const cursorPosition = editor!.selection.active;
+        const range = new vscode.Range(cursorPosition, cursorPosition);
+        if (!ignoreSelectionText) {
+          editor!.edit((editBuilder) => {
+            editBuilder.insert(cursorPosition, "Sample Text");
+          });
+        }
+		ignoreSelectionText = false;
+      }
+    }
+  });
+
+  const disp = vscode.commands.registerTextEditorCommand(
+    "plugaz.helloWorldMenu",
+    (textEditor, edit) => {
+      vscode.window.showInformationMessage("Context menu clicked");
+    }
+  );
+
+  context.subscriptions.push(disp);
