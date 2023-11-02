@@ -14,10 +14,22 @@
   "contributes": {
     "commands": [
       {
-        "command": "linedance.helloWorld",
-        "title": "Hello World"
+        "command": "appsyouwear.linedance",
+        "title": "linedance"
       }
-    ]
+    ],
+    "keybindings":[
+      {
+        "command": "appsyouwear.linedance",
+        "key": "alt+l"
+      }
+    ],
+    "languages": [
+      {
+        "id": "shellscript",
+        "extensions": [".line"]
+      }
+  ]
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",
